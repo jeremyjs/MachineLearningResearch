@@ -1,0 +1,7 @@
+%x=(-5:0.1:5), opt='l', 
+function [ points ] = gensyndata(x, opt)
+
+C = gcovexp(x,x,opt); %set the covariance matrix
+
+y=mvnrnd(zeros(size(x)),C);
+points = [x,y];
