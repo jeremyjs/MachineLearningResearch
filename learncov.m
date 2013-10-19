@@ -1,35 +1,38 @@
-%x=[-3 -2 -1 0 1 2 3]';
-%t=[3 2 1 0 -1 -2 -3]';
+function [operation, parameter] = learncov(x,t)
 
-op='0';
-par=[];
-currBIC=Inf;
+%%INPUTS
+%%=========================
+%x is a column vector of length n of data points
+%t is a column vector of length n of target values
 
-while 1
-    
-    [opcell,parcell] = genvars(op,par);
-    
-    bestpar=[];
-    bestindex=0;
-    minBIC = Inf;
-    
-    for i=1:length(opcell)
-        [bic,newpar] = BIC(x,t,opcell{i},parcell{i});
-        if bic<minBIC
-            minBIC=bic;
-            bestindex=i;
-            bestpar=newpar;
+    operation='0';
+    parameter=[];
+    currentBIC=Inf;
+
+    while 1
+
+        [operationCell,parameterCell] = genvars(operation,parameter); %generate variations
+
+        bestParameters=[];
+        bestIndex=0;
+        minBIC = Inf;
+
+        for i=1:length(operationCell)%find optimal operation
+            [bic,newParameters] = BIC(x,t,operationCell{i},parameterCell{i}); %optimize parameters for operation and compute bic
+            if bic<minBIC
+                minBIC=bic;
+                bestIndex=i;
+                bestParameters=newParameters;
+            end
+        end
+
+        if minBIC < currentBIC %if we are still improving the bic
+            operation = operationCell{bestIndex};
+            parameter = bestParameters;
+            currentBIC=minBIC;
+        else
+            break
         end
     end
-    
-    if minBIC < currBIC
-        op = opcell{bestindex};
-        par = bestpar;
-        currBIC=minBIC;
-    else
-        break
-    end
+
 end
-    
-op
-par

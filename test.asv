@@ -1,0 +1,13 @@
+x;
+t;
+windowradius=10;
+
+predictions=ones(windowradius*2+1,1);
+windowsize=2*windowradius+1;
+for predIndex=(windowsize+1):length(t)
+    predIndex
+    %%x( (predIndex-windowsize):(predIndex-1) )
+    [op,par] = learncov( (-windowradius:windowradius)', t( (predIndex-windowsize) : (predIndex-1) ) );
+    predValue = makePrediction((-windowradius:windowradius)',t((predIndex-windowsize):(predIndex-1)),windowradius+1,opt,param);
+    predictions=[predictions; predValue];
+end

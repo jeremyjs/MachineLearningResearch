@@ -47,7 +47,7 @@ function [ opcell, parcell ] = genvars( op, par )
         end
         
         for i=1:count
-            parcell{count}(4,2:end) = NaN;
+            parcell{i}(4,2:end) = NaN;
         end
         
     end
