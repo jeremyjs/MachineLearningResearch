@@ -13,3 +13,7 @@ for predIndex=(windowsize+1):length(t)
     predValue = makePrediction((-windowradius:windowradius)',tuse-avg,windowradius+1,opt,param);
     predictions=[predictions; predValue+avg];
 end
+
+
+sum((      predictions((windowsize+1):end) - t((windowsize+1):end)     ).^2 ) %our predictions SSE
+sum((      t((windowsize):(end-1)) - t((windowsize+1):end)     ).^2 ) %dumb predictions SSE

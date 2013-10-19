@@ -34,5 +34,7 @@ function [operation, parameter] = learncov(x,t)
             break
         end
     end
+    operation
+   
 
 end

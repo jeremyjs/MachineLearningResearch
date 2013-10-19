@@ -4,7 +4,7 @@ function [ opcell, parcell ] = genvars( op, par )
     center=0;
     
     kern = 'splr';
-    param = [var,len,NaN,var; var,1,4*len,var; 0,0,center,var; var,len,1,var]';
+    param = [var,len,NaN,var; var,1,2*len,var; 0,0,center,var; var,len,1,var]';
     
     if op=='0'
         opcell=cell(4,1);%%
