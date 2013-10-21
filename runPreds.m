@@ -1,5 +1,7 @@
-function [predictions, resid, SSEours, SSEbad] = runPreds(x,t, windowradius)
-
+function [predictions, resid, SSEours, SSEbad] = runPreds(filename, from, to, windowradius)
+load(filename);
+t=y(from:to);
+x=x(from:to);
 predictions=zeros(windowradius*2+1,1);
 windowsize=2*windowradius+1;
 for predIndex=(windowsize+1):length(t)

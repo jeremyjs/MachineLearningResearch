@@ -1,5 +1,5 @@
 function [operation, parameter] = learncov(x,t)
-
+    exit;
 %%INPUTS
 %%=========================
 %x is a column vector of length n of data points
@@ -36,5 +36,5 @@ function [operation, parameter] = learncov(x,t)
     end
     operation
    
-
+exit;
 end
