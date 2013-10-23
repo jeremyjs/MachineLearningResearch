@@ -1,0 +1,16 @@
+
+%parameters to change
+fileName='synthetic data/1.mat'; %path to your file
+from=1; %beginning indice in your data
+to=15; %end indice in your data
+%paramet
+
+windowradius=5; %window radius for runPreds function
+
+%comment out if you just want learncov
+[predictions, resid, SSEours, SSEbad]=runPreds(fileName, from, to, windowradius);
+
+%display our results
+disp(sprintf('%s%s', 'predictions = ', mat2str(predictions)));
+disp(sprintf('%s%s', 'SSEours = ', num2str(SSEours)));
+disp(sprintf('%s%s', 'SSEbad = ', num2str(SSEbad)));

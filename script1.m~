@@ -1,1 +1,18 @@
-a=parse_json('example.json');
+fileName='synthetic data/1.mat'; %path to your file
+from=1; %beginning indice in your data
+to=10; %end indice in your data
+
+windowradius=5; %window radius for runPreds function
+
+%comment out if you just want predictions
+[operation, parameter]=learncovwrapper(fileName, from, to);
+
+disp(sprintf('%s%s', 'operation = ',operation);
+
+%comment out if you just want learncov
+%[predictions, resid, SSEours, SSEbad]=runPreds(filename, from, to, windowradius);
+
+%disp('predictions = '+predictions);
+%disp('SSEours vs SSEbad');
+%disp('SSEours = '+SSEours);
+%disp('SSEbad = '+SSEbad);
