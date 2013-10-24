@@ -2,7 +2,7 @@
 
 %data is assumed to have an x and a y variable, both of which are nX1 vectors(you need to change your data
 %accordingly)
-fileName='synthetic data/1.mat'; %path to your file
+fileName='synthetic data/2.mat'; %path to your file
 from=1; %beginning indice in your data
 to=15; %end indice in your data
 windowradius=5; %window radius for runPreds function

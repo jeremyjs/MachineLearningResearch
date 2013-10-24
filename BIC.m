@@ -1,8 +1,13 @@
-function [ bic, newpar ] = BIC( x,t,operation,parameters )
+function [ bestBIC, bestParameters ] = BIC( x,t,operation,parameters )
     delta = 0.0001;
-    
-    operation;
-    newpar=parameters;
+    operation
+
+    %bestParameters;
+    bestBIC=Inf;
+
+    for randtry=1:10
+        newpar = parameters + (2*rand(size(parameters))-1);
+    %newpar=parameters;
     iteration=1;
     while iteration<1000 %absolute cutoff on number of iterations of 1000
         gradient=zeros(size(newpar));
@@ -27,6 +32,7 @@ function [ bic, newpar ] = BIC( x,t,operation,parameters )
         else
             S = gradient;
         end
+        %S=gradient;
 
         
         %search for positive derivative
@@ -35,6 +41,24 @@ function [ bic, newpar ] = BIC( x,t,operation,parameters )
             break
         end
         Sunit = S / Smag; %normalize S to make optimization less complicated
+
+        
+        value=[];
+        counts=(0:0.01:3);
+        for c=counts
+            value=[value, logmultigauss(t,gramcov(x,x,operation,newpar+c*Sunit))];
+        end
+        [~,maxInd] = max(value);
+        
+        if maxInd==1
+            break
+        else
+            maxInd;
+            newpar = newpar + counts(maxInd)*Sunit;
+        end
+        
+        %{
+
         upper=10*delta;
         lower=0;
         
@@ -58,10 +82,10 @@ function [ bic, newpar ] = BIC( x,t,operation,parameters )
         newpar = newpar + med*Sunit;
         
         %stop iterating if change in newpar is sufficiently small
-        if sqrt(sum( (med*Sunit).^2 ))<delta*10
+        if sqrt(sum( (med*Sunit).^2 ))<delta*2
             break
         end
-        
+        %}
         prevgrad = gradient;
         prevS = S;
         iteration=iteration+1;
@@ -70,6 +94,12 @@ function [ bic, newpar ] = BIC( x,t,operation,parameters )
     logML = logmultigauss(t,gramcov(x,x,operation,newpar)); %maximum likelihood
     bic = -2* logML + sum(~isnan(parameters(:)))*log(length(x)); 
     
+    if (bic<bestBIC)
+        bestBIC=bic;
+        bestParameters=newpar;
+    end
+    
+    end
     
 
 end

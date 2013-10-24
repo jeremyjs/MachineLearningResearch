@@ -23,7 +23,7 @@ if opt=='p' %periodic
     if par(3)<0.001
         par(3)=0.001;%period must be strictly positive
     end
-    C = par(1) * exp( - ( 2*sin( pi.*(X1-X2) / par(3)) ).^2 / par(2)^2 ) ;
+    C = par(1) * exp( -2*( sin( pi.*(X1-X2) / par(3)) ).^2 / par(2)^2 ) ;
 end
 
 if opt=='l' %linear

@@ -1,5 +1,5 @@
 function [ opcell, parcell ] = genvars( op, par )
-    var=1;
+    var=0.1;
     len=1;
     center=0;
     
@@ -7,9 +7,10 @@ function [ opcell, parcell ] = genvars( op, par )
     param = [var,len,NaN,var; var,1,2*len,var; 0,0,center,var; var,len,1,var]';
     
     if op=='0'
-        opcell=cell(4,1);%%
-        parcell=cell(4,1);%%
-        for i=1:4%%
+        opcell=cell(4,1);
+        parcell=cell(4,1);
+        
+        for i=1:4
             opcell{i}=kern(i);
             parcell{i}=param(:,i);
         end
@@ -23,9 +24,9 @@ function [ opcell, parcell ] = genvars( op, par )
         for i=1:N
             for j=1:4%%
                 for k='+*'
-                    count=count+1;
-                    opcell{count} = [ op(1:i) kern(j) k op( (i+1):end ) ];
-                    parcell{count} = [ par(:,1:i) param(:,j) NaN(4,1) par(:, (i+1):end)];
+                        count=count+1;
+                        opcell{count} = [ op(1:i) kern(j) k op( (i+1):end ) ];
+                        parcell{count} = [ par(:,1:i) param(:,j) NaN(4,1) par(:, (i+1):end)];
 
                 end
             end
