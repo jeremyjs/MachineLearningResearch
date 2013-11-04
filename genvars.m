@@ -4,7 +4,7 @@ function [ opcell, parcell ] = genvars( op, par )
     center=0;
     
     kern = 'splr';
-    param = [var,len,NaN,var; var,1,2*len,var; 0,0,center,var; var,len,1,var]';
+    param = [var,len,NaN,NaN; var,1,2*len,NaN; var,var,center,NaN; var,len,1,NaN]';
     
     if op=='0'
         opcell=cell(4,1);
@@ -13,7 +13,9 @@ function [ opcell, parcell ] = genvars( op, par )
         for i=1:4
             opcell{i}=kern(i);
             parcell{i}=param(:,i);
+            parcell{i}(4) = var;
         end
+        
     else
         N=length(op);
         M=(N+1)/2;
@@ -38,6 +40,9 @@ function [ opcell, parcell ] = genvars( op, par )
                     count=count+1;
                     opcell{count} = [ op(1:(i-1)) kern(j) op((i+1):end)];
                     parcell{count} = [ par(:,1:(i-1)) param(:,j) par(:,(i+1):end)];
+                    if isnan(parcell{count}(4))
+                        parcell{count}(4) = var;
+                    end
 
                 end
             end
@@ -47,9 +52,9 @@ function [ opcell, parcell ] = genvars( op, par )
             disp('ERROR: problem in count')
         end
         
-        for i=1:count
-            parcell{count}(4,2:end) = NaN;
-        end
+        %for i=1:count
+            %parcell{count}(4,2:end) = NaN;
+        %end
         
     end
 

@@ -8,16 +8,20 @@ function [ C ] = gramcov( x1,x2, operation, parameters )
     stack = cell(100,1);
     pointer = 1;
     for i=1:length(operation)
-        if ismember(operation(i),['s','p','l','r'])
+        if operation(i)=='s' || operation(i)=='p' || operation(i)=='l' || operation(i)=='r'
+            %stack(:,:,pointer) = makecov(x1,x2,operation(i),parameters(:,i),parameters(4,1));
+
             stack{pointer} = makecov(x1,x2,operation(i),parameters(:,i),parameters(4,1));
             pointer=pointer+1;
         elseif operation(i)=='+'
+            %stack(:,:,pointer-2) = stack(:,:,pointer-2) + stack(:,:,pointer-1);
             stack{pointer-2} = stack{pointer-2} + stack{pointer-1};
             pointer=pointer-1;
         elseif operation(i)=='*'
             if pointer<3
                 print('ERROR: invalid rpn');
             end
+            %stack(:,:,pointer-2) = stack(:,:,pointer-2) .* stack(:,:,pointer-1);
             stack{pointer-2} = stack{pointer-2} .* stack{pointer-1};
             pointer=pointer-1;
         else
@@ -27,6 +31,7 @@ function [ C ] = gramcov( x1,x2, operation, parameters )
     if pointer~=2
         print('ERROR: invalid rpn')
     end
+    %C=stack(:,:,1);
     C = stack{1};
     
                 

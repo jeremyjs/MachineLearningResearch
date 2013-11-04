@@ -9,8 +9,8 @@ function [operation, parameter] = learncov(x,t)
     parameter=[];
     currentBIC=Inf;
 
-    MaxLevel=10;
-    level=0;
+    MaxLevel=
+    level=0
     while level<MaxLevel
 
         [operationCell,parameterCell] = genvars(operation,parameter); %generate variations
@@ -35,7 +35,6 @@ function [operation, parameter] = learncov(x,t)
         else
             break
         end
-        level=level+1
     end
     operation
    
