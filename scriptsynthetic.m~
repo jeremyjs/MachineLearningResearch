@@ -1,11 +1,8 @@
 %remember to edit below functions to get different synthetic data
 %<EDIT HERE>, parameters for user to change
-fileName='synthetic data/sample.mat';
 opt='p';
-min=-5;
-max=5;
-by=0.1;
-x=(min:by:max)';
+x=(-5:0.1:5)';
+fileName='synthetic data/sample.mat';
 %<EDIT HERE/>, parameters for user to change
 
 
@@ -46,5 +43,5 @@ plot(x,y);
 y=y';
 
 %save synthetic data to file
-description=strcat('x=', num2str(min), 'to', num2str(max), ', y=', opt);
-save(fileName,'x', 'y', 'opt', 'description');
+description=
+save(fileName,'x', 'y', 'opt');
