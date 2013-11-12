@@ -1,8 +1,11 @@
 %remember to edit below functions to get different synthetic data
 %<EDIT HERE>, parameters for user to change
-opt='p';
-x=(-5:0.1:5)';
 fileName='synthetic data/sample.mat';
+opt='p';
+min=-5;
+max=5;
+by=0.1;
+x=(min:by:max)';
 %<EDIT HERE/>, parameters for user to change
 
 
@@ -31,6 +34,10 @@ end
 if opt =='p' %periodic
     C = exp( - (sin( pi.*(X1-X2) / 3.0)).^2 );
 end
+if strcmp(opt, 'gramcov')
+   C=gramcov(x, x,  
+end
+
 %<EDIT HERE/>, edit parameters to get different synthetic data
 %add functions and name them appropriately
 
@@ -43,5 +50,5 @@ plot(x,y);
 y=y';
 
 %save synthetic data to file
-description=
-save(fileName,'x', 'y', 'opt');
+description=strcat('x=', num2str(min), 'to', num2str(max), ', y=', opt);
+save(fileName,'x', 'y', 'opt', 'description');
