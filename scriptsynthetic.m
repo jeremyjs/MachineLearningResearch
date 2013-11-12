@@ -20,17 +20,11 @@ X2 = repmat(x',[length(x) 1]); %make a matrix where the ij entry is x2_i
 %add functions and name them appropriately
 if opt=='c' %constant with noise
     C = ones(size(X1));
-end
-
-if opt=='g' %gaussian
+elseif opt=='g' %gaussian
     C = exp( - abs(X1-X2).^2);
-end
-
-if opt=='j' %exponential of different
+elseif opt=='j' %exponential of different
     C = exp( - abs(X1-X2)/1000)+0.01*(X1==X2);
-end
-
-if opt=='s' || opt=='l' || opt=='r' || opt=='p'
+else
    C=gramcov(x, x,  opt, param);
 end
 
