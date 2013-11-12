@@ -1,10 +1,10 @@
-function [ opcell, parcell ] = genvars( op, par )
+function [ opcell, parcell ] = genvars( op, par,period )
     var=0.1;
-    len=1;
+    len=2;
     center=0;
     
     kern = 'splr';
-    param = [var,len,NaN,NaN; var,1,2*len,NaN; var,var,center,NaN; var,len,1,NaN]';
+    param = [var,len,NaN,NaN; var,1,period,NaN; var,var,center,NaN; var,len,1,NaN]';
     
     if op=='0'
         opcell=cell(4,1);

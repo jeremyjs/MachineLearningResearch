@@ -1,7 +1,11 @@
 %input an a set of x's and gcov option
 %output synthetic y's based off of gcov opt
-function [ x,y ] = gensyndata(x, opt)
+function [ y ] = gensyndata(x, operation, parameter)
+    
+X1 = repmat(x,[1 length(x)]); %make a matrix where the ij entry is x1_j
+    
+X2 = repmat(x',[length(x) 1]); %make a matrix where the ij entry is x2_i
 
-C = gcovexp(x,x,opt); %set the covariance matrix
+C = gramcov(X1,X2,operation,parameter); %set the covariance matrix
 
-y=mvnrnd(zeros(size(x)),C);
+y=mvnrnd(zeros(size(x)),C)';

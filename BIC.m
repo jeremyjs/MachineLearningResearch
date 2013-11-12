@@ -1,6 +1,6 @@
 function [ bestBIC, bestParameters ] = BIC( x,t,operation,parameters )
     delta = 0.0001;
-    operation
+
     parameters;
     stack = zeros(length(x),length(x),10);
     
@@ -39,6 +39,7 @@ function [ bestBIC, bestParameters ] = BIC( x,t,operation,parameters )
         end
         
         if sum( gradient(~isnan(gradient)).^2)==0 %if gradient is zero, break
+            1
             break
         end
 
@@ -58,7 +59,7 @@ function [ bestBIC, bestParameters ] = BIC( x,t,operation,parameters )
         end
         Sunit = S / Smag; %normalize S to make optimization less complicated
 
-        
+        Sunit;
         value=zeros(size(counts));
         %%counts=(0:0.01:3);
         for c=1:length(counts)
@@ -121,7 +122,7 @@ function [ bestBIC, bestParameters ] = BIC( x,t,operation,parameters )
     %end
     
     end
-   
+    operation
 
 end
 

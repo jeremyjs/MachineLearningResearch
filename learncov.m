@@ -4,6 +4,8 @@ function [operation, parameter] = learncov(x,t)
 %%=========================
 %x is a column vector of length n of data points
 %t is a column vector of length n of target values
+    period=periodic(t);
+
 
     operation='0';
     parameter=[];
@@ -13,7 +15,7 @@ function [operation, parameter] = learncov(x,t)
     level=0;
     while level<MaxLevel
 
-        [operationCell,parameterCell] = genvars(operation,parameter); %generate variations
+        [operationCell,parameterCell] = genvars(operation,parameter,period); %generate variations
 
         bestParameters=[];
         bestIndex=0;
@@ -28,6 +30,7 @@ function [operation, parameter] = learncov(x,t)
             end
         end
 
+        bestParameters;
         if minBIC < currentBIC %if we are still improving the bic
             operation = operationCell{bestIndex};
             parameter = bestParameters;
@@ -35,7 +38,7 @@ function [operation, parameter] = learncov(x,t)
         else
             break
         end
-        level=level+1
+        level=level+1;
     end
     operation
    
