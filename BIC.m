@@ -122,7 +122,7 @@ function [ bestBIC, bestParameters ] = BIC( x,t,operation,parameters )
     %end
     
     end
-    operation
+    operation;
 
 end
 

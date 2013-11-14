@@ -40,13 +40,9 @@ function [operation, parameter] = learncov(x,t)
         operation
         bestParameters
         minBIC
-        X1 = repmat(x,[1 length(x)]); %make a matrix where the ij entry is x1_j
-        X2 = repmat(x',[length(x) 1]); %make a matrix where the ij entry is x2_i
-
-        logML = logmultigauss(t,gramcov(X1,X2,operation,bestParameters)); %maximum likelihood
-        -2* logML
-        sum(~isnan(bestParameters(:)))*log(length(x)) 
-
+        logML = logmultigauss(t,gramcov(X1,X2,operation,newpar)); %maximum likelihood
+        bic = -2* logML + sum(~isnan(parameters(:)))*log(length(x)); 
+    
         level=level+1;
     end
     operation
