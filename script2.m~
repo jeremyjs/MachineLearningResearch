@@ -1,13 +1,17 @@
+%parameters for user to change
+%global stack;
 
-%parameters to change
-fileName='synthetic data/1.mat'; %path to your file
+%data is assumed to have an x and a y variable, both of which are nX1 vectors(you need to change your data
+%accordingly)
+fileName='syntheti/1.mat'; %path to your file
 from=1; %beginning indice in your data
 to=15; %end indice in your data
-%paramet
-
 windowradius=5; %window radius for runPreds function
 
-%comment out if you just want learncov
+%parameters for user to change
+
+
+%run our prediction function
 [predictions, resid, SSEours, SSEbad]=runPreds(fileName, from, to, windowradius);
 
 %display our results
