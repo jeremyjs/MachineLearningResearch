@@ -9,7 +9,7 @@ for predIndex=(windowsize+1):length(t)
     tuse = t( (predIndex-windowsize) : (predIndex-1) );
     avg = mean(tuse);
     %%x( (predIndex-windowsize):(predIndex-1) )
-    [opt,param,variance] = learncov( (-windowradius:windowradius)', tuse-avg);
+    [opt,param,variance] = learncov( (-windowradius:windowradius)', tuse-avg, '0', []);
     predValue = makePrediction((-windowradius:windowradius)',tuse-avg,windowradius+1,opt,param,variance);
     predictions=[predictions; predValue+avg];
 end

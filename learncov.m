@@ -1,5 +1,6 @@
 function [kernel, param,variance] = learncov(x,y,kernel,param)
-    addpath('C:\Users\Steve\Documents\GitHub\MachineLearningResearch\gpml-matlab-v3.4-2013-11-11\util');
+    cur=pwd;
+    addpath(fullfile(cur, 'gpml-matlab-v3.4-2013-11-11/util'));
 
 %%INPUTS
 %%=========================
