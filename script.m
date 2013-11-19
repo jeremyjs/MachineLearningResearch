@@ -11,22 +11,22 @@ initKernelCell={'0','0','0','0','0','0','0'};
 initParamCell={[],[],[],[],[],[],[]};
 
 x=(-50:50)';
-
-for i=1:7
-    for j=1:3
+numRepeats=5;
+for i=1:1
+    for j=1:numRepeats
         i
         kernel = kernelCell{i};
         param = paramCell{i};
         variance=0.1;
         y=gensyndata(x,kernel,param,variance);
         [o,p]=learncov(x,y,initKernelCell{i},initParamCell{i});
-        resultCell{3*i-3+j}=o;
+        resultCell{numRepeats*i-numRepeats+j}=o;
     end
 end
 
-for i=1:7
+for i=1:1
     fprintf('%s ==> \n', kernelCell{i});
-    for j=1:3
-        fprintf('%s\n',resultCell{3*i-3+j});
+    for j=1:numRepeats
+        fprintf('%s\n',resultCell{numRepeats*i-numRepeats+j});
     end
 end
