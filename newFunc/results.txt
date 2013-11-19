@@ -1,0 +1,2 @@
+Did not converge to 'll*', but when initialized to 'l', it properly found 'll*'
+
