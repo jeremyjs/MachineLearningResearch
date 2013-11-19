@@ -6,7 +6,7 @@ function [ predictions, SSE ] = arppredictions( a, p, winsize )
     N=length(a);
     predsize=N-winsize;
     amean=mean(a);
-    %a=a-amean;
+    a=a-amean;
     predictions=zeros(predsize, 1);
     for k=0:predsize-1
         x=zeros(winsize-p:p);
@@ -24,7 +24,7 @@ function [ predictions, SSE ] = arppredictions( a, p, winsize )
         xNew=a(winsize-p+1+k:winsize+k);
         coefficients=regress(y,x);
         pred=xNew*coefficients;  
-        predictions(k+1)=pred;
+        predictions(k+1)=pred+amean;
     end
    SSE=sum((predictions-a(winsize+1:N)').^2);
 end
