@@ -1,9 +1,4 @@
-function [ val ] = logmultigauss( t,C )
-
-    if isnan(C(1))
-        val=-Inf;
-    else
-        val = -0.5 * (t'*C^-1*t + length(t)*log(2*pi) + det(C) );
-    end
+function [ val ] = logmultigauss( y,C )
+   val = -0.5 * (y'*C^-1*y + length(y)*log(2*pi) + log(det(C)) );
 end
 

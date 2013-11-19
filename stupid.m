@@ -1,1 +1,0 @@
-[o,p] = learncov(x,y)
