@@ -7,7 +7,7 @@ function [ C ] = makecov( X1, X2, kernel, param, variance)
     %X2 = repmat(x',[length(x) 1]); %make a matrix where the ij entry is x2_i
 
     
-if ~(variance<=0 || param(1)<=0 || param(2)<0.0001 || (kernel=='p' && param(3)<=0) || (kernel=='r' && (param(3)<0.5 || param(3)>2)) )
+if ~(variance<0 || param(1)<=0 || param(2)<0.0001 || (kernel=='p' && param(3)<=0) || (kernel=='r' && (param(3)<0.5 || param(3)>2)) )
 
     if kernel=='s' %squared exp
         C = param(1)*exp( - (X1-X2).^2 / (2*param(2)^2));

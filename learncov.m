@@ -34,12 +34,18 @@ function [kernel, param,variance] = learncov(x,y,kernel,param)
         minBIC = Inf;
 
         for i=1:length(kernelCell)%find optimal operation
-            initialVector = toVector( paramCell{i}, variance );
-            kernelCell{i};
+            for randIter=1:5
+                f = @(vector)computeBIC(X1,X2,y,kernelCell{i},vector);
+                
+                
+                initialVector = toVector( paramRand(paramCell{i},kernelCell{i}), variance );
+                while f(initialVector)==realmax
+                    initialVector = toVector( paramRand(paramCell{i},kernelCell{i}), variance );
+                end
             
-            f = @(vector)computeBIC(X1,X2,y,kernelCell{i},vector);
-            [newVector,bic] = minimizeWrapper(initialVector,f); %optimize parameters for operation and compute bic
 
+                [newVector,bic] = minimizeWrapper(initialVector,f); %optimize parameters for operation and compute bic
+            end
             
             
             if bic<minBIC
