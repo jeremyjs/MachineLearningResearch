@@ -26,6 +26,9 @@ function [ predictions, SSE ] = arppredictions( a, p, winsize )
         pred=xNew*coefficients;  
         predictions(k+1)=pred+amean;
     end
+    
+    %subtract and add back the mean
+    a=a+amean;
    SSE=sum((predictions-a(winsize+1:N)').^2);
 end
 

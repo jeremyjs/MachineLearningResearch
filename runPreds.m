@@ -1,4 +1,4 @@
-function [predictions, resid, SSEours, SSEbad] = runPreds(filename, from, to, windowradius)
+function [predictions, ARpredictions, xs, t1,t2, SSEours, ARSSE, SSEbad] = runPreds(filename, from, to, windowradius, p)
 load(filename);
 t=y(from:to);
 x=x(from:to);
@@ -13,11 +13,20 @@ for predIndex=(windowsize+1):length(t)
     predValue = makePrediction((-windowradius:windowradius)',tuse-avg,windowradius+1,opt,param,variance);
     predictions=[predictions; predValue+avg];
 end
-resid=0;
 preds=predictions((windowsize+1):end) - t((windowsize+1):end);
+predictions=predictions((windowsize+1):end);
+
 xs=x((windowsize+1):end);
-plot(xs, predictions((windowsize+1):end),'-',xs,t((windowsize+1):end),'--',xs,t((windowsize):(end-1)),':');
-hleg1=legend('predictions','actual','dumb predictions');
-title(strcat('Predictions plot with windowradius= ', num2str(windowradius)));
+t1=t((windowsize+1):end);
+t2=t((windowsize):(end-1));
+
 SSEours=sum((      preds     ).^2 ); %our predictions SSE
 SSEbad=sum((      t((windowsize):(end-1)) - t((windowsize+1):end)     ).^2 ); %dumb predictions SSE
+
+%now run ARP model
+[ARpredictions, ARSSE]=arppredictions( t, p, windowsize );
+
+
+
+
+
